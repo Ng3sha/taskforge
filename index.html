@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK FORGE</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="/output.css">
+
+    <style>
+        :root {
+            --primary: #5412fc;
+            --bg-body: #F8F9FA;
+            --bg-surface: #FFFFFF;
+            --text-main: #212529;
+            --text-body: #495057;
+            --text-muted: #6C757D;
+            --border: #E9ECEF;
+            --success: #28A745;
+            --danger: #DC3545;
+            --warning: #FFC107;
+            --info: #17A2B8;
+        }
+        
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-body);
+        }
+
+        .font-display {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E9ECEF;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D1D5DB;
+        }
+
+        [data-theme="dark"] body {
+            background-color: #111827 !important;
+            color: #f9fafb !important;
+        }
+        [data-theme="dark"] .bg-white {
+            background-color: #1f2937 !important;
+        }
+        [data-theme="dark"] .text-gray-900 {
+            color: #f9fafb !important;
+        }
+        [data-theme="dark"] .border-gray-200 {
+            border-color: #374151 !important;
+        }
+    </style>
+</head>
+<body class="flex bg-white dark:bg-gray-900 min-h-screen overflow-hidden antialiased selection:bg-[#5412fc] selection:text-white ">
+
+    <!-- Main Wrapper -->
+    <div class="flex-1 flex flex-col min-w-0 bg-[#F8F9FA] ">
+        
+        <!-- Header -->
+        <header class="h-20 border-b border-[#E9ECEF] flex items-center justify-between px-6 lg:px-10 z-10 sticky top-0 bg-white dark:bg-gray-900">
+            <div class="flex items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2 text-xs font-medium text-[#6C757D] dark:text-white mb-1">
+                        <span>TASK FORGE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="relative hidden md:block ">
+                <iconify-icon icon="solar:magnifer-linear" width="18" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 "></iconify-icon>
+                <input type="text" id="search-input" placeholder="Search by title,category or priority" class="pl-10 pr-4 py-2.5 w-72 border border-[#E9ECEF] rounded-xl text-sm font-medium text-[#212529] placeholder-[#6C757D] focus:outline-none focus:border-[#808080] focus:ring-4 focus:ring-[#5412fc]/10 transition-all bg-white dark:bg-gray-900 dark:text-white">
+            </div>
+
+            <div class="flex items-center gap-5 ">
+                <!-- Actions -->
+                <div class="flex items-center gap-3 ">
+                    <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl border border-[#E9ECEF] text-[#495057] hover:border-[#5412fc] hover:text-[#5412fc] hover:bg-[#F8F9FA] transition-all relative ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="#808080" fill-rule="evenodd" d="M277.333 405.333v85.333h-42.667v-85.333zm99.346-58.824l60.34 60.34l-30.17 30.17l-60.34-60.34zm-241.359 0l30.17 30.17l-60.34 60.34l-30.17-30.17zM256 139.353c64.422 0 116.647 52.224 116.647 116.647c0 64.422-52.225 116.647-116.647 116.647A116.427 116.427 0 0 1 139.352 256c0-64.423 52.225-116.647 116.648-116.647m0 42.666c-40.859 0-73.981 33.123-73.981 74.062a73.76 73.76 0 0 0 21.603 52.296c13.867 13.867 32.685 21.64 52.378 21.603zm234.666 52.647v42.667h-85.333v-42.667zm-384 0v42.667H21.333v-42.667zM105.15 74.98l60.34 60.34l-30.17 30.17l-60.34-60.34zm301.7 0l30.169 30.17l-60.34 60.34l-30.17-30.17zM277.332 21.333v85.333h-42.667V21.333z"/></svg>
+                    </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-10 bg-white dark:bg-gray-900">
+            <div class="grid lg:grid-cols-4 grid-cols-1 gap-4 p-1  content-center">
+                <!-- Status scetion  -->
+
+                <!-- Total Tasks -->
+                <div id="totalTasks" class="bg-white dark:bg-gray-900 rounded-lg  border border-gray-100 h-30 p-5 shadow">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wid">Total Tasks</p>
+                    <p class="text-2xl font-bold text-gray-400"></p>
+                    <p class="text-sm text-gray-400 ">on the board</p>
+                </div>
+
+                <!-- Completed -->
+                <div id="completedTasks" class="bg-white dark:bg-gray-900 rounded-lg  border border-gray-100 h-30 p-5 shadow">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Completed</p>
+                    <p class="text-2xl font-bold text-gray-400"></p>
+                    <p class="text-sm text-gray-400 ">done</p>
+                </div>
+
+                <!-- Pending -->
+                <div id="PendingTasks" class="bg-white dark:bg-gray-900 rounded-lg  border border-gray-100 h-30 p-5 shadow">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Pending</p>
+                    <p class="text-2xl font-bold text-gray-400"></p>
+                    <p class="text-sm text-gray-400 ">not done yet</p>
+                </div>
+
+                <!-- Overdue -->
+                <div id="overdueTasks"  class="bg-white dark:bg-gray-900 rounded-lg  border border-gray-100 h-30 p-5 shadow">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Overdue</p>
+                    <p class="text-3xl font-bold text-red-400 "></p>
+                    <p class="text-sm text-gray-400 ">past due date</p>
+                </div>
+
+                </div>   
+                <!-- Status Section -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between  gap-4 lg-2 mb-6 mt-5">
+                    <div class="flex lg:flex-row flex-col items-end gap-6 p-4 lg-2 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 shadow-sm mt-2">
+
+                        <!-- STATUS (segmented buttons) -->
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Status</p>
+                            <div class="flex rounded-lg overflow-hidden border border-gray-200">
+                                <button data-filter="all" class="px-4 py-2 text-sm font-medium bg-blue-600 text-white border-r border-gray-200">All</button>
+                                <button data-filter="completed" class="px-4 py-2 text-sm font-medium bg-white text-gray-600 hover:bg-gray-50 border-r border-gray-200">Completed</button>
+                                <button data-filter="pending" class="px-4 py-2 text-sm font-medium bg-white text-gray-600 hover:bg-gray-50 border-r border-gray-200">Pending</button>
+                                <button data-filter="overdue" class="px-4 py-2 text-sm font-medium bg-white text-gray-600 hover:bg-gray-50">Overdue</button>   
+                            </div>
+                        </div>   
+                        <div class="flex">
+                            <!-- PRIORITY (dropdown) -->
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Priority</p>
+                                <div class="relative">
+                                    <select id="filter-priority" class="appearance-none bg-white text-gray-700 text-sm px-4 py-2 pr-9 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <option value="All">All</option>
+                                        <option value="High" class="text-red-700">High</option>
+                                        <option value="Medium" class="text-yellow-500">Medium</option>
+                                        <option value="Low" class="green-500">Low</option>
+                                    </select>
+                                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- CATEGORY (dropdown) -->
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 ">Category</p>
+                                <div class="relative">
+                                <select id="filter-category" class="appearance-none bg-white text-gray-700 text-sm px-4 py-2 pr-9 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="All">All</option>
+                                    <option value="Work">Work</option>
+                                    <option value="Personal">Personal</option>
+                                    <option value="School">School</option>
+                                    <option value="Backend">Backend</option>
+                                    <option value="Frontend">Frontend</option>
+                                    <option value="Fintech">Fintech</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                                </div>
+                            </div>
+
+                            <!-- SORT BY (dropdown) -->
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Sort By</p>
+                                <div class="relative">
+                                <select id="filter-sort" class="appearance-none bg-white text-gray-700 text-sm px-4 py-2 pr-9 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="Newest">Newest</option>
+                                    <option value="Oldest">Oldest</option>
+                                    <option value="Priority">Priority</option>
+                                    <option value="Due Date">Due Date</option>
+                                </select>
+                                <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>   
+
+                     <!-- modal -->
+
+                    <div class="flex items-center gap-3 w-fit ">
+                        <button id="open-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors dark:text-white ">Add Task</button>
+
+                        <dialog id="my-dialog" aria-hidden="true" class="backdrop:bg-black/60 backdrop:backdrop-blur-sm fixed inset-0 m-auto w-[calc(100%-2rem)] max-w-lg max-h-[90vh] overflow-y-auto rounded-xl border border-gray-200 bg-white p-6 shadow-2xl"">      
+
+                            <h2 class="text-lg font-semibold mb-4 text-gray-900 ">Add Task</h2>
+
+                            <form id="task-form" class="space-y-4">
+
+                                <!-- Title -->
+                                <div>
+                                    <label for="task-title" class="block text-sm font-medium text-gray-700 mb-1 dark:text-white">Title</label>
+                                    <input type="text" id="task-title" name="title" required
+                                    class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+
+                                <!-- Description -->
+                                <div>
+                                <label for="task-desc" class="block text-sm font-medium text-gray-900 mb-1 dark:text-gray-500 ">Description</label>
+                                <textarea id="task-desc" name="description" rows="3"
+                                    class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"></textarea>
+                                </div>
+                                <!-- Category -->
+                                <div>
+                                    <label for="task-category" class="block text-sm font-medium text-gray-900 mb-1 dark:text-gray-500 ">Category</label>
+                                    <select id="task-category" name="category"
+                                        class="w-full appearance-none px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <option>All</option>
+                                        <option>Work</option>
+                                        <option>Personal</option>
+                                        <option>School</option>
+                                        <option>Backend</option>
+                                        <option>Frontend</option>
+                                        <option>Fintech</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>   
+
+                                <!-- Priority -->
+                                <div>
+                                <label for="task-priority" class="block text-sm font-medium text-gray-900 mb-1 dark:text-gray-500">Priority</label>
+                                <select id="task-priority" name="priority"
+                                    class="w-full appearance-none px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option class="text-gray-500">Low</option>
+                                    <option class="text-yellow-500">Medium</option>
+                                    <option class="text-red-700">High</option>
+                                </select>
+                                </div>
+
+                                <!-- Due Date -->
+                                <div>
+                                <label for="task-due" class="block text-sm font-medium text-gray-900 mb-1 dark:text-gray-500">Due Date</label>
+                                <input type="date" id="task-due" name="dueDate"
+                                    class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="flex justify-end gap-3 pt-2">
+                                    <button type="button" id="close-btn"
+                                        class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                        Cancel
+                                    </button>
+                                    <button type="submit"
+                                        class="px-4  rounded-lg text-sm bg-blue-700 text-black border-blue-700 hover:bg-blue-700 transition-colors dark:text-white">
+                                        Add Task
+                                    </button>
+                                </div>
+
+                            </form>
+                        </dialog>   
+                    </div>
+                </div>   
+
+                        <!-- Bulk Action Toolbar -->
+                <div id="bulk-bar" class="flex items-center justify-between bg-white dark:bg-gray-900 border border-gray-200 rounded-t-xl px-5 py-3">
+                    <div class="flex items-center gap-4">
+                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                        <input type="checkbox" id="select-all" class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                        Select All
+                        </label>
+                        <span id="selected-count" class="text-xs text-gray-400 hidden">0 selected</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button id="delete-selected" class="px-3 py-1.5 text-sm font-medium text-red-600 bg-white dark:bg-gray-900rounded-lg hover:bg-red-100 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+                        Delete Selected
+                        </button>
+                        <button id="clear-all" class="px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                        Clear All
+                        </button>
+                    </div>
+                </div>   
+                    <!-- adding tasks  -->
+                <div id="task-list" class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+                        <!-- tasks go here -->
+                </div>     
+        </main>
+    </div>
+
+    <script src="/script.js"></script>
+     
+</body>
+</html>   
